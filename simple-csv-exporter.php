@@ -9,7 +9,8 @@
  * License URI:     https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:     wp-csv-exporter
  * Domain Path:     /languages
- * Requires PHP:    8.0
+ * Requires at least: 6.8
+ * Requires PHP:    8.2
  * Version: 3.0.2
  */
 

@@ -14,9 +14,9 @@
 	<arg name="extensions" value="php"/>
 	<arg name="colors"/>
 
-	<config name="minimum_supported_wp_version" value="5.3"/>
+	<config name="minimum_supported_wp_version" value="6.8"/>
 	<!-- Rules: Check PHP version compatibility -->
-	<config name="testVersion" value="7.4-"/>
+	<config name="testVersion" value="8.2-"/>
 	<rule ref="PHPCompatibilityWP"/>
 	<rule ref="WordPress">
 		<exclude name="Generic.Commenting.DocComment.MissingShort" />

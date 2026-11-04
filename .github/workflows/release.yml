@@ -1,0 +1,66 @@
+name: Release
+on:
+    release:
+        types: [published]
+
+jobs:
+    # Catches a release created by hand, or a draft whose tag was edited.
+    check-version:
+        name: Check Version
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v7
+
+            - name: Check the tag matches the versions in the files
+              env:
+                  TAG: ${{ github.event.release.tag_name }}
+              run: bin/check-version.sh "$TAG"
+
+    lint:
+        name: Lint
+        needs: check-version
+        uses: ./.github/workflows/lint.yml
+
+    test:
+        name: Test
+        needs: check-version
+        uses: ./.github/workflows/test.yml
+
+    release:
+        name: Upload Release Asset
+        needs: [check-version, lint, test]
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v7
+
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: '8.2'
+
+            - name: Install Composer production dependencies
+              run: composer install --no-dev --no-progress --no-interaction --optimize-autoloader
+
+            # Generates readme.txt from README.md.
+            - name: Build
+              run: bash ./bin/build.sh
+
+            - name: WordPress Plugin Deploy
+              uses: 10up/action-wordpress-plugin-deploy@stable
+              with:
+                  generate-zip: true
+              env:
+                  SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+                  SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+                  SLUG: simple-csv-exporter
+
+            - name: Upload release asset
+              uses: softprops/action-gh-release@v3
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  files: ${{ github.workspace }}/${{ github.event.repository.name }}.zip

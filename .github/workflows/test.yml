@@ -1,0 +1,60 @@
+name: Test
+on:
+    pull_request:
+        paths-ignore:
+            - '**.md'
+    push:
+        branches: [main]
+        paths-ignore:
+            - '**.md'
+    workflow_call:
+
+jobs:
+    phpunit:
+        name: PHPUnit (PHP ${{ matrix.php }} / WP ${{ matrix.wp }})
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                include:
+                    - php: '8.2'
+                      wp: '7.1'
+                    - php: '8.2'
+                      wp: '6.8'
+        steps:
+            - uses: actions/checkout@v7
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v7
+              with:
+                  node-version-file: .node-version
+                  cache: npm
+
+            # Blocks malicious npm packages: npm and npx run through Aikido Safe Chain from here on.
+            - name: Install Aikido Safe Chain
+              run: |
+                  curl -fsSL https://github.com/AikidoSec/safe-chain/releases/download/1.5.27/install-safe-chain.sh -o /tmp/install-safe-chain.sh
+                  echo "600ebddcb3aaf1fd53653a8d7985df44528722c0f5ee7eb9fff86f26a1a4e5a8  /tmp/install-safe-chain.sh" | sha256sum -c -
+                  sh /tmp/install-safe-chain.sh --ci
+                  rm /tmp/install-safe-chain.sh
+
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php }}
+
+            - name: Install Node dependencies
+              run: npm ci
+
+            - name: Install Composer dependencies
+              run: composer install --no-progress --no-interaction
+
+            - name: Start WordPress
+              run: |
+                  chmod -R 767 ./ # TODO: Possibly integrate in wp-env
+                  npm run wp-env start
+              env:
+                  WP_ENV_PHP_VERSION: ${{ matrix.php }}
+                  WP_ENV_CORE: WordPress/WordPress#${{ matrix.wp }}
+
+            - name: Run PHPUnit
+              run: npm run test-unit-php

@@ -3,6 +3,7 @@
 .github
 .gitignore
 .npmrc
+.claude
 .git
 .husky
 .idea
@@ -21,7 +22,7 @@ wordpress
 *.tar.gz
 *.zip
 nightly
-.nvmrc
+.node-version
 .wp-env.json
 .distignore
 .editorconfig
