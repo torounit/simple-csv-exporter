@@ -3,6 +3,7 @@
 .github
 .gitignore
 .npmrc
+.claude
 .git
 .husky
 .idea

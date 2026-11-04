@@ -1,0 +1,28 @@
+name: Lint
+on:
+    pull_request:
+        paths-ignore:
+            - '**.md'
+    push:
+        branches: [main]
+        paths-ignore:
+            - '**.md'
+    workflow_call:
+
+jobs:
+    lint-php:
+        name: Lint PHP
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v7
+
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: '8.2'
+
+            - name: Install Composer dependencies
+              run: composer install --no-progress --no-interaction
+
+            - name: Run PHP lint
+              run: composer lint
