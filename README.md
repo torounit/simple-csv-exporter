@@ -3,7 +3,7 @@ Contributors:      Toro_Unit,hamworks
 Donate link:       https://www.paypal.me/torounit  
 Tags:              CSV,export  
 Requires at least: 5.8  
-Tested up to:      6.7  
+Tested up to:      7.1  
 Requires PHP:      7.4  
 Stable tag:        3.0.2
 License:           GPLv2 or later  
@@ -80,6 +80,10 @@ add_filter(
 ```
 
 ## Changelog
+
+### Unreleased
+
+* Tested up to WordPress 7.1.
 
 ### 3.0.0
 * Add support UTF-8 with BOM.
