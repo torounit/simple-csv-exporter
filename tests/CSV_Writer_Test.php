@@ -29,7 +29,7 @@ class CSV_Writer_Test extends TestCase {
 			),
 		);
 
-		$expect = <<<CSV
+		$expect = <<<'CSV'
 a,b
 1,2
 A,B
@@ -63,7 +63,7 @@ CSV;
 			),
 		);
 
-		$expect = <<<CSV
+		$expect = <<<'CSV'
 a,b
 1,2
 A,B

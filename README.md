@@ -83,6 +83,7 @@ add_filter(
 
 ### Unreleased
 
+* Update PHP-DI to 7.
 * Requires WordPress 6.8 or later.
 * Requires PHP 8.2 or later.
 * Tested up to WordPress 7.1.
