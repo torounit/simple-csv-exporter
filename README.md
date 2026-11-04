@@ -2,9 +2,9 @@
 Contributors:      Toro_Unit,hamworks  
 Donate link:       https://www.paypal.me/torounit  
 Tags:              CSV,export  
-Requires at least: 5.8  
+Requires at least: 6.8  
 Tested up to:      7.1  
-Requires PHP:      7.4  
+Requires PHP:      8.2  
 Stable tag:        3.0.2
 License:           GPLv2 or later  
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html  
@@ -83,6 +83,8 @@ add_filter(
 
 ### Unreleased
 
+* Requires WordPress 6.8 or later.
+* Requires PHP 8.2 or later.
 * Tested up to WordPress 7.1.
 
 ### 3.0.0
