@@ -5,7 +5,7 @@ Tags:              CSV,export
 Requires at least: 6.8  
 Tested up to:      7.1  
 Requires PHP:      8.2  
-Stable tag:        3.0.2
+Stable tag:        3.1.0
 License:           GPLv2 or later  
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -81,7 +81,7 @@ add_filter(
 
 ## Changelog
 
-### Unreleased
+### 3.1.0
 
 * Update PHP-DI to 7.
 * Requires WordPress 6.8 or later.
