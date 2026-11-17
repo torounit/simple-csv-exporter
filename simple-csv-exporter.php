@@ -11,7 +11,7 @@
  * Domain Path:     /languages
  * Requires at least: 6.8
  * Requires PHP:    8.2
- * Version: 3.0.2
+ * Version: 3.1.0
  */
 
 use HAMWORKS\WP\Simple_CSV_Exporter\Simple_CSV_Exporter;
